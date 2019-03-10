@@ -30,7 +30,7 @@ sub new {
 
 sub score {
     my ($self, %options) = @_;
-    my $score = sum(grep {defined($_)} map {$scores{$_}} split(//, $self->{word})) // 0;
+    my $score = sum(map {$scores{$_} // 0} split(//, $self->{word})) // 0;
     my $double = $options{double} // 0;
     my $triple = $options{triple} // 0;
     return $score * (2 ** $double) * (3 ** $triple);
