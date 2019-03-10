@@ -1,6 +1,6 @@
 module Isogram
   def self.isogram?(input)
-    alphabets = input.downcase.tr("^a-z", "");
-    alphabets.size == alphabets.chars.uniq.size
+    alphabets = input.downcase.scan(/[a-z]/);
+    alphabets.size == alphabets.uniq.size
   end
 end
