@@ -1,10 +1,10 @@
 module Raindrops
+  PAIRS = [[3, "Pling"], [5, "Plang"], [7, "Plong"]]
   def self.convert(n)
     answer = ""
-    answer += "Pling" if n % 3 == 0
-    answer += "Plang" if n % 5 == 0
-    answer += "Plong" if n % 7 == 0
-    answer = n.to_s if answer.empty?
-    answer
+    PAIRS.each do |divisor, word|
+      answer += word if n % divisor == 0
+    end
+    answer.empty? ? n.to_s : answer
   end
 end
