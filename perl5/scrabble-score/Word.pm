@@ -23,7 +23,7 @@ while (my ($letters, $score) = each(%scores_base)) {
 
 sub new {
     my ($class, $word) = @_;
-    return bless {word => uc($word)};
+    return bless {word => uc($word)}, $class;
 }
 
 sub score {
