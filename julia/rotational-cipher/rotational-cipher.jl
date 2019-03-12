@@ -12,3 +12,7 @@ function rotate(n::Int, str::Union{AbstractString,AbstractChar})
 end
 
 make_str(str, n) = SubString(str, n+1) * SubString(str, 1, n)
+
+macro R13_str(str)
+    rotate(13, str)
+end
