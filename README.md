@@ -1,1 +1,1 @@
-[profile](https://exercism.io/profiles/tsuka)
+[profile on exercism](https://exercism.io/profiles/tsuka)
