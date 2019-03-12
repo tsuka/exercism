@@ -4,11 +4,16 @@ function rotate(n::Int, str::Union{AbstractString,AbstractChar})
     upper = join('A':'Z')
     from = lower * upper
     to = make_str(lower, n) * make_str(upper, n)
-    str |> join |> s -> split(s, "") |>
-    s -> map(s) do s
-        idx = findfirst(s, from)
-        idx !== nothing ? SubString(to, idx) : s
-    end |> join |> s -> ischar ? s[1] : s
+
+    if ischar
+        str = String([str])
+    end
+
+    split(str, "") |>
+    letters -> map(letters) do letter
+        idx = findfirst(letter, from)
+        idx !== nothing ? SubString(to, idx) : letter
+    end |> join |> rotated -> ischar ? rotated[1] : rotated
 end
 
 make_str(str, n) = SubString(str, n+1) * SubString(str, 1, n)
