@@ -5,21 +5,19 @@ use warnings;
 use List::Util qw(sum);
 
 my %scores;
-BEGIN {
-    my %scores_base =(
-        "AEIOULNRST" => 1,
-        "DG"         => 2,
-        "BCMP"       => 3,
-        "FHVWY"      => 4,
-        "K"          => 5,
-        "JX"         => 8,
-        "QZ"         => 10
-    );
+my %scores_base =(
+    "AEIOULNRST" => 1,
+    "DG"         => 2,
+    "BCMP"       => 3,
+    "FHVWY"      => 4,
+    "K"          => 5,
+    "JX"         => 8,
+    "QZ"         => 10
+);
 
-    while (my ($letters, $score) = each(%scores_base)) {
-        foreach my $letter (split(//, $letters)) {
-            $scores{$letter} = $score;
-        }
+while (my ($letters, $score) = each(%scores_base)) {
+    foreach my $letter (split(//, $letters)) {
+        $scores{$letter} = $score;
     }
 }
 
