@@ -25,7 +25,7 @@ class Scrabble
   end
 
   def score
-    letters.map(&SCORE_TABLE).sum
+    letters.sum(&SCORE_TABLE)
   end
 
   def letters
