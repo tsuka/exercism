@@ -1,19 +1,16 @@
-function rotate(n::Int, str::Union{AbstractString,AbstractChar})
-    ischar = isa(str, Char)
-    lower = join('a':'z')
-    upper = join('A':'Z')
-    from = lower * upper
-    to = make_str(lower, n) * make_str(upper, n)
-
-    if ischar
-        str = String([str])
+function rotate(n::Int, c::AbstractChar)
+    if 'a' <= c <= 'z'
+        mod((c - 'a' + n), 26) + 'a'
+    elseif 'A' <= c <= 'Z'
+        mod((c - 'A' + n), 26) + 'A'
+    else
+        c
     end
+end
 
-    split(str, "") |>
-    letters -> map(letters) do letter
-        idx = findfirst(letter, from)
-        idx !== nothing ? SubString(to, idx) : letter
-    end |> join |> rotated -> ischar ? rotated[1] : rotated
+
+function rotate(n::Int, str::AbstractString)
+    map(i -> rotate(n, str[i]), 1:length(str)) |> join
 end
 
 make_str(str, n) = SubString(str, n+1) * SubString(str, 1, n)
