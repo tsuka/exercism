@@ -8,7 +8,7 @@ sub word_count {
     $phrase = lc($phrase);
     my $count = {};
     while ($phrase =~ /(\w+)/g) {
-        $count->{$1} += 1;
+        $count->{$1} ++;
     }
     return $count;
 }
