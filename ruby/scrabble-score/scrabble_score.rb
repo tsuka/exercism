@@ -7,11 +7,10 @@ class Scrabble
     [ %w(K),                   5],
     [ %w(J X),                 8],
     [ %w(Q Z),                10],
-  ].reduce({}) do |h, (letters, score)|
+  ].each_with_object({}) do |(letters, score), h|
       letters.each do |letter|
         h[letter] =  score
       end
-      h
     end
   SCORE_TABLE.default = 0
 
