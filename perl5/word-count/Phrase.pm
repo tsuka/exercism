@@ -6,10 +6,8 @@ use warnings;
 sub word_count {
     my $phrase = shift;
     $phrase = lc($phrase);
-    my $count = {};
-    while ($phrase =~ /(\w+)/g) {
-        $count->{$1} ++;
-    }
-    return $count;
+    my %count;
+    $count{$1} ++ while ($phrase =~ /(\w+)/g);
+    return \%count;
 }
 1;
