@@ -7,8 +7,7 @@ class Scrabble
     [ %w(K),                   5],
     [ %w(J X),                 8],
     [ %w(Q Z),                10],
-  ].reduce({}) do |h, pairs|
-      letters, score = pairs
+  ].reduce({}) do |h, (letters, score)|
       letters.each do |letter|
         h[letter] =  score
       end
