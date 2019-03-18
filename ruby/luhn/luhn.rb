@@ -1,6 +1,6 @@
 module Luhn
   def self.valid?(digits)
-    digits = digits.delete(' ').reverse
+    digits = digits.delete(' ')
     return false if invalid_length?(digits) || contains_invalid_char?(digits)
     (checksum(digits) % 10).zero?
   end
@@ -14,7 +14,7 @@ module Luhn
   end
 
   def self.checksum(digits)
-    digits.chars.map(&:to_i).each_slice(2).map{|a,b=0| a + double_bounded(b)}.sum
+    digits.reverse.chars.map(&:to_i).each_slice(2).sum{|a,b=0| a + double_bounded(b)}
   end
 
   def self.double_bounded(num)
