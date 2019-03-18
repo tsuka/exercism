@@ -6,7 +6,10 @@ class Robot
   NUM = ("0".."9").to_a
 
   def self.forget
-    @@used_names = []
+    @@pointer = 0
+    @@stocked_name = ALPHA.repeated_permutation(2).to_a.product(
+        NUM.repeated_permutation(3).to_a
+    ).map(&:join).shuffle
   end
 
   def initialize
@@ -14,11 +17,7 @@ class Robot
   end
 
   def reset
-    new_name = loop do
-      nn = (ALPHA.sample(2) + NUM.sample(3)).join
-      break nn unless @@used_names.include?(nn)
-    end
-    self.name = new_name
-    @@used_names << new_name
+    self.name = @@stocked_name[@@pointer] or raise "Limit exceeded."
+    @@pointer += 1
   end
 end
