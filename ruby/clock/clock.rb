@@ -1,21 +1,25 @@
 class Clock
-  ONE_DAY = 60*24
-  attr_accessor :minute
+  HOURS_PER_DAY = 24
+  MINUTES_PER_HOUR = 60
+  MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
 
-  def initialize(hour: hour = 0, minute: minute = 0)
-    self.minute = (hour * 60 + minute) % ONE_DAY
+  attr_accessor :minute
+  protected :minute, :minute=
+
+  def initialize(hour: 0, minute: 0)
+    self.minute = (hour * MINUTES_PER_HOUR + minute) % MINUTES_PER_DAY
   end
 
   def to_s
-    sprintf("%02d:%02d", minute / 60, minute % 60)
+    sprintf("%02d:%02d", *minute.divmod(MINUTES_PER_HOUR))
   end
 
   def +(other)
-    Clock.new(minute: (self.minute + other.minute))
+    Clock.new(minute: minute + other.minute)
   end
 
   def -(other)
-    Clock.new(minute: (self.minute - other.minute))
+    Clock.new(minute: minute - other.minute)
   end
 
   def ==(other)
