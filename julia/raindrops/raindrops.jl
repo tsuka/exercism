@@ -1,13 +1,9 @@
 function raindrops(number::Int)
-    str = ""
-    if number % 3 == 0
-        str *= "Pling"
-    end
-    if number % 5 == 0
-        str *= "Plang"
-    end
-    if number % 7 == 0
-        str *= "Plong"
-    end
+    PAIRS = [
+        (3, "Pling"),
+        (5, "Plang"),
+        (7, "Plong"),
+    ]
+    str = map(t -> number % t[1] == 0 ? t[2] : "" , PAIRS) |> join
     str == "" ?  "$number" : str
 end
