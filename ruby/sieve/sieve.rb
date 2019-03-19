@@ -9,11 +9,16 @@ class Sieve
     array = (2..max).to_a
     pos = 0
     loop do
-      break if array.length <= pos || array[pos] >= max / 2
+      break if array.length <= pos || array[pos] >= Math.sqrt(max)
       divisor = array[pos]
-      array.delete_if {|n| n != divisor && (n % divisor).zero?}
+      array.delete_if {|n| n != divisor && divisible?(n, divisor)}
       pos += 1
     end
     array
+  end
+
+  def divisible?(dividend, divisor)
+    dividend -= divisor while dividend > 0
+    dividend.zero?
   end
 end
