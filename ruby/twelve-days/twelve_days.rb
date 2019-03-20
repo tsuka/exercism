@@ -9,11 +9,15 @@ module TwelveDays
     "two Turtle Doves", "a Partridge in a Pear Tree"]
 
   def self.items(d)
-    *all, last = ITEMS.drop(11-d)
-    all.empty? ? last : (all + ["and #{last}"]).join(", ")
+    ITEMS.drop(11-d)
+  end
+
+  def self.sentence(d)
+    *all, last = items(d)
+    all.empty? ? last : (all << "and #{last}").join(", ")
   end
 
   def self.song
-    12.times.map {|d| "On the #{DAYS[d]} day of Christmas my true love gave to me: #{items(d)}.\n"}.join("\n")
+    12.times.map {|d| "On the #{DAYS[d]} day of Christmas my true love gave to me: #{sentence(d)}.\n"}.join("\n")
   end
 end
