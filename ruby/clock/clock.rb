@@ -3,11 +3,8 @@ class Clock
   MINUTES_PER_HOUR = 60
   MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
 
-  attr_accessor :minute
-  protected :minute, :minute=
-
   def initialize(hour: 0, minute: 0)
-    self.minute = (hour * MINUTES_PER_HOUR + minute) % MINUTES_PER_DAY
+    @minute = (hour * MINUTES_PER_HOUR + minute) % MINUTES_PER_DAY
   end
 
   def to_s
@@ -25,4 +22,7 @@ class Clock
   def ==(other)
     self.minute == other.minute
   end
+
+  attr_reader :minute
+  protected :minute
 end
