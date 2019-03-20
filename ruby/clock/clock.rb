@@ -23,6 +23,6 @@ class Clock
     self.minute == other.minute
   end
 
+  protected
   attr_reader :minute
-  protected :minute
 end
