@@ -11,12 +11,12 @@ class Robot
     self.reset
   end
 
-  def next_name
+  def assign_next_name
     self.name = @@stocked_name[@@pointer]
   end
 
   def reset
-     raise "Limit exceeded." unless next_name
+     raise "Limit exceeded." unless assign_next_name
      @@pointer += 1
   end
 end
