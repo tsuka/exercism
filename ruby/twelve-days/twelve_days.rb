@@ -12,12 +12,12 @@ module TwelveDays
     ITEMS.drop(11-d)
   end
 
-  def self.sentence(d)
-    *all, last = items(d)
+  def self.sentence(ary)
+    *all, last = ary
     all.empty? ? last : (all << "and #{last}").join(", ")
   end
 
   def self.song
-    12.times.map {|d| "On the #{DAYS[d]} day of Christmas my true love gave to me: #{sentence(d)}.\n"}.join("\n")
+    12.times.map {|d| "On the #{DAYS[d]} day of Christmas my true love gave to me: #{sentence(items(d))}.\n"}.join("\n")
   end
 end
