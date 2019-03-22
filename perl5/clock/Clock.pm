@@ -13,7 +13,7 @@ sub new {
 sub time {
   my ($self) = @_;
   my $minute = $self->{minute};
-  return sprintf("%02d:%02d", int($minute / 60), $minute % 60);
+  return sprintf("%02d:%02d", $minute / 60, $minute % 60);
 }
 
 sub add_minutes {
