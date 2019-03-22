@@ -1,26 +1,28 @@
 module Tournament
-  Team = Struct.new(:mp, :w, :d, :l, :p) do
+  Team = Struct.new(:won, :drawn, :lost) do
     def win
-      self.mp += 1
-      self.w += 1
-      self.p += 3
+      self.won += 1
     end
 
     def loss
-      self.mp += 1
-      self.l += 1
+      self.lost += 1
     end
 
     def draw
-      self.mp += 1
-      self.d += 1
-      self.p += 1
+      self.drawn += 1
+    end
+
+    def maches
+      won + lost + drawn
+    end
+
+    def points
+      won * 3 + drawn
     end
   end
 
-  def self.tally(input)
-    header = "Team                           | MP |  W |  D |  L |  P\n"
-    table = Hash.new{|h, k| h[k] = Team.new(0, 0, 0, 0, 0)}
+  def self.calcurate_table(input)
+    table = Hash.new{|h, k| h[k] = Team.new(0, 0, 0)}
     input.chomp.each_line(chomp: true) do |line|
       team1, team2, result = line.split(";");
       case result
@@ -35,9 +37,19 @@ module Tournament
         table[team2].draw
       end
     end
+    table
+  end
 
-    header + table.sort_by{|k, v| [-v.p, k]}.map do |k, v|
-      [k.ljust(30), v.mp, v.w, v.d, v.l, v.p].join(" |  ") + "\n"
+  def self.format_table(table)
+    header = ["Team", "MP", "W", "D", "L", "P"]
+    ([header] + table.sort_by{|k, v| [-v.points, k]}.map do |k, v|
+      [k, v.maches, v.won, v.drawn  , v.lost, v.points]
+    end).map do |ary|
+      "%-30s | % 2s | % 2s | % 2s | % 2s | % 2s\n" % ary
     end.join
+  end
+
+  def self.tally(input)
+    format_table(calcurate_table(input))
   end
 end
