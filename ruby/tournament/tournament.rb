@@ -1,4 +1,7 @@
 module Tournament
+  HEADER = ["Team", "MP", "W", "D", "L", "P"]
+  FORMAT = "%-30s | % 2s | % 2s | % 2s | % 2s | % 2s\n"
+
   Team = Struct.new(:won, :drawn, :lost) do
     def win
       self.won += 1
@@ -41,11 +44,8 @@ module Tournament
   end
 
   def self.format_table(table)
-    header = ["Team", "MP", "W", "D", "L", "P"]
-    ([header] + table.sort_by{|k, v| [-v.points, k]}.map do |k, v|
-      [k, v.maches, v.won, v.drawn  , v.lost, v.points]
-    end).map do |ary|
-      "%-30s | % 2s | % 2s | % 2s | % 2s | % 2s\n" % ary
+    FORMAT % HEADER + table.sort_by{|k, v| [-v.points, k]}.map do |k, v|
+      FORMAT % [k, v.maches, v.won, v.drawn  , v.lost, v.points]
     end.join
   end
 
