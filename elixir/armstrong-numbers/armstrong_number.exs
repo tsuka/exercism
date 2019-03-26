@@ -7,8 +7,12 @@ defmodule ArmstrongNumber do
   def valid?(number) do
     digits = Integer.digits(number)
     num_of_digits = length(digits)
-    result = Enum.map(digits, fn d -> ceil(:math.pow(d, num_of_digits)) end)
+    result = Enum.map(digits, fn d -> pow(d, num_of_digits) end)
     |> Enum.sum
     result == number
+  end
+
+  defp pow(a, b) do
+    Enum.reduce(1..b, 1, fn _, acc -> acc * a end)
   end
 end
