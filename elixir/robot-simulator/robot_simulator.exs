@@ -3,6 +3,8 @@ defmodule RobotSimulator do
   @directions [:north, :east, :south, :west]
   @move %{north: {0, 1}, east: {1, 0}, south: {0, -1}, west: {-1, 0}}
 
+  defguardp is_integer(x, y) when is_integer(x) and is_integer(y)
+  defguardp in_directions(direction) when direction in @directions
 
   @doc """
   Create a Robot Simulator given an initial direction and position.
@@ -10,15 +12,18 @@ defmodule RobotSimulator do
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
   @spec create(direction :: atom, position :: {integer, integer}) :: any
-  def create(direction \\ :north, position \\ {0, 0}) do
-    if direction in @directions do
-      case position do
-        {x, y} when is_integer(x) and is_integer(y) -> %{direction: direction, position: position}
-        _ -> {:error, "invalid position"}
-      end
-    else
-      {:error, "invalid direction"}
-    end
+  def create(direction \\ :north, position \\ {0, 0})
+
+  def create(direction, position = {x, y}) when is_integer(x, y) and in_directions(direction) do
+    %{direction: direction, position: position}
+  end
+
+  def create(direction, _) when in_directions(direction) do
+    {:error, "invalid position"}
+  end
+
+  def create(_, _) do
+    {:error, "invalid direction"}
   end
 
   @doc """
@@ -62,10 +67,9 @@ defmodule RobotSimulator do
     position
   end
 
-  defp advance(robot) do
-    %{direction: direction, position: {x, y}} = robot
+  defp advance(robot = %{direction: direction, position: {x, y}}) do
     {xx, yy} = @move[direction]
-    %{direction: direction, position: {x+xx, y+yy}}
+    %{robot | position: {x+xx, y+yy}}
   end
 
   defp turn_right(robot) do
@@ -76,9 +80,8 @@ defmodule RobotSimulator do
     turn(-1, robot)
   end
 
-  defp turn(n, robot) do
-    %{direction: direction, position: position} = robot
+  defp turn(n, robot = %{direction: direction}) do
     idx = Enum.find_index(@directions, &(&1 == direction))
-    %{direction: Enum.at(@directions, Integer.mod(idx+n, 4)), position: position}
+    %{robot | direction: Enum.at(@directions, Integer.mod(idx+n, 4))}
   end
 end
