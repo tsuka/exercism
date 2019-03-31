@@ -7,18 +7,13 @@ class Sieve
 
   def primes
     array = (2..max).to_a
-    pos = 0
-    loop do
-      break if array.length <= pos || array[pos] >= Math.sqrt(max)
-      divisor = array[pos]
-      array.delete_if {|n| n != divisor && divisible?(n, divisor)}
-      pos += 1
+    len = array.length
+    (0..Math.sqrt(len)).each do |i|
+      next if array[i].nil?
+      (i+1...len).each do |j|
+        array[j] = nil if array[j] && (array[j] % array[i]).zero?
+      end
     end
-    array
-  end
-
-  def divisible?(dividend, divisor)
-    dividend -= divisor while dividend > 0
-    dividend.zero?
+    array.compact
   end
 end
