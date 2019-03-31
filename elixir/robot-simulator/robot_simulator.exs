@@ -33,17 +33,17 @@ defmodule RobotSimulator do
   """
   @spec simulate(robot :: any, instructions :: String.t()) :: any
   def simulate(robot, instructions) do
-    try do
-      String.to_charlist(instructions) |> Enum.reduce(robot, fn c, r ->
+    chars = String.to_charlist(instructions)
+    if Enum.all?(chars, &(&1 in [?R, ?L, ?A])) do
+      Enum.reduce(chars, robot, fn c, r ->
         case c do
           ?R -> turn_right(r)
           ?L -> turn_left(r)
           ?A -> advance(r)
-          _ -> throw {:error, "invalid instruction"}
         end
       end)
-    catch
-      err -> err
+    else
+      {:error, "invalid instruction"}
     end
   end
 
