@@ -4,6 +4,5 @@ function raindrops(number::Int)
         (5, "Plang"),
         (7, "Plong"),
     ]
-    str = map(t -> number % t[1] == 0 ? t[2] : "" , PAIRS) |> join
-    str == "" ?  "$number" : str
+    map(t -> number % t[1] == 0 ? t[2] : "" , PAIRS) |> join |> str -> maximum(["$number", str])
 end
