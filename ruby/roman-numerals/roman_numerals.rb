@@ -7,8 +7,7 @@ class Integer
   ]
 
   def to_roman
-    roman, n = ROMAN_TABLE.reduce(["", self]) do |pair, table|
-      roman, n = pair
+    roman, n = ROMAN_TABLE.reduce(["", self]) do |(roman, n), table|
       digit = n % 10
       str = case digit
       when 9
