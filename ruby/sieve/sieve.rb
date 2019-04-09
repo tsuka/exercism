@@ -1,28 +1,32 @@
 class Sieve
   attr_reader :max
-  attr_accessor :array
+  attr_accessor :sieve
 
   def initialize(max)
     @max = max
   end
 
   def primes
-    self.array = (2..max).to_a
-    len = array.length
+    self.sieve = (2..max).to_a
+    len = sieve.length
     (0..Math.sqrt(len)).each do |i|
       next if sieved?(i)
       (i+1...len).each do |j|
-        self.array[j] = nil if to_sieve?(i,j)
+        add_to_sieve(j) if dividable?(i,j)
       end
     end
-    array.compact
+    sieve.compact
   end
 
   def sieved?(i)
-    array[i].nil?
+    sieve[i].nil?
   end
 
-  def to_sieve?(i,j)
-    array[j] && (array[j] % array[i]).zero?
+  def dividable?(i,j)
+    sieve[j] && (sieve[j] % sieve[i]).zero?
+  end
+
+  def add_to_sieve(i)
+    self.sieve[i] = nil
   end
 end
