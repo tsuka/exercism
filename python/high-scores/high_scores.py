@@ -12,5 +12,4 @@ class HighScores(object):
         return max(self.scores)
 
     def personal_top_three(self):
-        self.scores.sort(reverse=True)
-        return self.scores[0:3]
+        return sorted(self.scores, reverse=True)[:3]
