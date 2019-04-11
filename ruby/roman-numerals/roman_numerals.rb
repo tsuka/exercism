@@ -1,25 +1,27 @@
 class Integer
-  ROMAN_TABLE = [
-    {1 => "I", 5 => "V", 10 => "X"},
-    {1 => "X", 5 => "L", 10 => "C"},
-    {1 => "C", 5 => "D", 10 => "M"},
-    {1 => "M"}
-  ]
+  ROMAN_TABLE = {
+    1000 => "M",
+    900 => "CM",
+    500 => "D",
+    400 => "CD",
+    100 => "C",
+    90 => "XC",
+    50 => "L",
+    40 => "XL",
+    10 => "X",
+    9 => "IX",
+    5 => "V",
+    4 => "IV",
+    1 => "I",
+  }
 
   def to_roman
-    roman, n = ROMAN_TABLE.reduce(["", self]) do |(roman, n), table|
-      digit = n % 10
-      str = case digit
-      when 9
-        table[1] + table[10]
-      when 5..8
-        table[5] + (table[1] * (digit - 5))
-      when 4
-        table[1] + table[5]
-      else
-        table[1] * digit
+    roman, remain = ROMAN_TABLE.reduce(["", self]) do |(roman, remain), (n, roman_digit)|
+      while remain >= n
+        remain -= n
+        roman += roman_digit
       end
-      [str + roman, n / 10]
+      [roman, remain]
     end
     roman
   end
