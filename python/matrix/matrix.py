@@ -1,19 +1,10 @@
 class Matrix(object):
     def __init__(self, matrix_string):
-        matrix = []
-        for row in matrix_string.split("\n"):
-            cur_row = []
-            for elem in row.split(" "):
-                cur_row.append(int(elem))
-            matrix.append(cur_row)
-        self.matrix = matrix
-
+        self.matrix = [[int(elem) for elem in row.split(" ")] for row in matrix_string.split("\n")]
+        self.transposed = list(zip(*self.matrix))
 
     def row(self, index):
         return self.matrix[index-1]
 
     def column(self, index):
-        col = []
-        for i in range(0, len(self.matrix)):
-            col.append(self.matrix[i][index-1])
-        return col
+        return list(self.transposed[index-1])
