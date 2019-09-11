@@ -7,5 +7,4 @@ def is_armstrong(number):
     num_of_digits = len(digits)
 
     result = sum(i ** num_of_digits for i in digits)
-    print(result)
     return result == number
