@@ -7,4 +7,4 @@ def convert(number):
   if number % 7 == 0:
     ans += "Plong"
 
-  return str(number) if len(ans) == 0 else ans
+  return ans or str(number)
