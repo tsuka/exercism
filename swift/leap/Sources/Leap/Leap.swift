@@ -1,4 +1,4 @@
-class Year {
+struct Year {
   var isLeapYear: Bool
 
   init(calendarYear: Int) {
